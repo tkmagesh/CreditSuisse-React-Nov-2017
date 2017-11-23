@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Intro</title>
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		class HelloWorld extends React.Component{
+			render(){
+				let greetMsg = 'Hi ' + this.props.user + ', Have a nice day!';
+				return (
+					<div>
+						<h1>{greetMsg}</h1>
+					</div>
+				)
+			}
+		}
+		function renderApp(){
+			var username = prompt('Enter the username :');
+			ReactDOM.render(<HelloWorld user={username}/>, 
+				document.getElementById('content'))
+		}
+		function init(){
+			var btnGreet = document.getElementById('btnGreet');
+			btnGreet.addEventListener('click', renderApp);
+		}
+		init();
+	</script>
+</head>
+<body>
+	<input type="button" value="Greet" id="btnGreet">
+	<div id="content">
+		
+	</div>
+</body>
+</html>

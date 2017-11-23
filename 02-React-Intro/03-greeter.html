@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React Intro</title>
+	<script src="react.js"></script>
+	<script src="react-dom.js"></script>
+	<script src="babel.min.js"></script>
+	<script type="text/babel">
+		class HelloWorld extends React.Component{
+			state = { user : 'Magesh' };
+
+			constructor(){
+				super();
+				this.greet = this.greet.bind(this);
+			}
+			greet(){
+				var username = this.refs.txtUserName.value;
+				this.setState({user :  username});
+			}
+			render(){
+				let greetMsg = 'Hi ' + this.state.user + ', Have a nice day!';
+				return (
+					<div>
+						<input type="text" ref="txtUserName"/>
+						<input type="button" value="Greet" id="btnGreet" onClick={this.greet} />
+						<h1>{greetMsg}</h1>
+					</div>
+				)
+			}
+		}
+		function renderApp(){
+			ReactDOM.render(<HelloWorld />, 
+				document.getElementById('content'))
+		}
+		renderApp();
+	</script>
+</head>
+<body>
+	
+	<div id="content">
+		
+	</div>
+</body>
+</html>
