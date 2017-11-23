@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Intro</title>
+	<script src="jquery-3.2.1.js"></script>
+	<script>
+		$(function(){
+			$('#btnGreet').click(function(){
+				var $txtName = $('#txtName'),
+					username = $txtName.val(),
+					$divMessage = $('#divMessage');
+				var greetMsg = 'Hi ' + username + ', Have a nice day!';
+				$divMessage.html(greetMsg);
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="text" id="txtName" >
+	<input type="button" value="Greet" id="btnGreet">
+	<div id="divMessage">[Message]</div>
+</body>
+</html>
