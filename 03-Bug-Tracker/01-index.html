@@ -51,14 +51,47 @@
 		}
 		class BugsCollection extends EventEmitter{
 			list = [];
+
 			add(bugName){
-				this.list.push(bugName);
+				let	newBug = new Bug(bugName);
+				this.list.push(newBug);
 				this.trigger();
 			}
 			getAll(){
 				return [...this.list];
 			}
 		}
+
+		class Bug {
+			name = '';
+			isClosed = false;
+
+			constructor(name, isClosed=false){
+				this.name = name;
+				this.isClosed = isClosed;
+			}
+
+			toggle(){
+				this.isClosed = !this.isClosed;
+			}
+		}
+
+		class BugItem extends React.Component{
+			onBugClick(){
+				this.props.bug.toggle();
+				console.log('bug toggled', this.props.bug);
+			}
+			render(){
+				let { bug } = this.props;
+				return(
+					<li>
+						<span className="bugname" onClick={this.onBugClick.bind(this)}>{bug.name}</span>
+						<div>[{bug.isClosed.toString()}]</div>
+					</li>
+				)
+			}
+		}
+
 		class BugTracker extends React.Component{
 			constructor(){
 				super();
@@ -72,7 +105,9 @@
 				let { model } = this.props,
 					bugs = model.getAll();
 
-				
+				let bugItems = bugs.map((bug, index) => (
+					<BugItem bug={bug} key={index}/>
+				));
 				return(
 					<div>
 						<section className="stats">
@@ -97,7 +132,7 @@
 						</section>
 						<section className="list">
 							<ol>
-								
+								{bugItems}
 							</ol>
 							<input type="button" value="Remove Closed" />
 						</section>
