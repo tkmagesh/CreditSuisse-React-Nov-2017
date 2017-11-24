@@ -17,6 +17,12 @@
       "name": "Router is not routing",
       "isClosed": false,
       "createdAt": "2017-11-22T08:13:58.009Z"
+    },
+    {
+      "id": 5,
+      "name": "Server comm failure",
+      "isClosed": false,
+      "createdAt": "2017-11-24T09:27:42.188Z"
     }
   ],
   "projects": [

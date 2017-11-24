@@ -1,3 +1,6 @@
+
+
+
 function getComparer(attrName){
 	return function(item1, item2){
 		if (item1[attrName] < item2[attrName]) return -1;
@@ -19,8 +22,16 @@ let defaultBugState = {
 };
 
 function bugsReducer(currentState = defaultBugState, action){
-	if (action.type === 'ADD_NEW'){
-		let newBug = { name : action.payload, isClosed : false };
+	console.log(action);
+	if (action.type === 'LOADED'){
+		return { 
+			bugs : action.payload, 
+			by : currentState.by, 
+			isDecending : currentState.isDecending 
+		};
+	}
+	if (action.type === 'ADDED'){
+		let newBug = action.payload;
 		let bugs = [...currentState.bugs, newBug];
 		let comparer = getComparer(currentState.by);
 		if (currentState.isDecending)
@@ -53,8 +64,10 @@ function bugsReducer(currentState = defaultBugState, action){
 		let comparer = getComparer(action.payload.by);
 		if (action.payload.isDecending)
 			comparer = getDescending(comparer);
+		let result = [...currentState.bugs.sort(comparer)];
+		console.table(result);
 		return { 
-			bugs : currentState.bugs.sort(comparer), 
+			bugs : result, 
 			by : action.payload.by, 
 			isDecending : action.payload.isDecending 
 		};

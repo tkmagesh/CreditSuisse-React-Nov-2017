@@ -8,16 +8,24 @@ import bugActionCreators from './actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-let BugTracker = ({ bugs, toggle, removeClosed, addNew, sort }) => {
-	return (
-		<div>
-			<BugStats bugs={bugs} />
-			<BugSort sort={sort} />
-			<BugEdit addNew={addNew} />
-			<BugList {...{bugs, toggle, removeClosed}} />
-		</div>
-	);
-};
+class BugTracker extends Component{
+	componentWillMount(){
+		this.props.load();
+	}
+	render(){
+		console.log('BugTracker rendered');
+		let { bugs, toggle, removeClosed, addNew, sort } = this.props;
+		return (
+			<div>
+				<BugStats bugs={bugs} />
+				<BugSort sort={sort} />
+				<BugEdit addNew={addNew} />
+				<BugList {...{bugs, toggle, removeClosed}} />
+			</div>
+		);
+	}
+}
+
 
 export default connect(
 	({bugState}) => ({bugs : bugState.bugs}),
